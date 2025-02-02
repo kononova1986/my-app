@@ -2,12 +2,10 @@ import { TodayList } from '@/components/to-do-list';
 import React from 'react';
 
 
-export const TodayPage: React.FC = () => {
+export default function TodayPage () {
   return (
     <div>
       <TodayList />
     </div>
   );
 };
-
-export default TodayPage;
