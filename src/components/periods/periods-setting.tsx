@@ -14,6 +14,7 @@ import { cn } from "@/lib/utils";
 import { DurationStep } from "./duration-step";
 import { Button } from "../ui";
 import type { DurationArray } from "../types";
+import { useTranslation } from "react-i18next";
 
 interface PeriodsSettingProps {
   className?: string;
@@ -22,9 +23,11 @@ interface PeriodsSettingProps {
 export const PeriodsSetting: React.FC<PeriodsSettingProps> = ({
   className,
 }) => {
+  const { t } = useTranslation();
+  
   const [dataPeriod, setDataPeriod] = useState<DurationArray>([
-    { value: 28, id: "menstruation" },
-    { value: 4, id: "cycle" },
+    { value: 4, id: "menstruation" },
+    { value: 28, id: "cycle" },
     { value: 14, id: "ovulation" },
   ]);
 
@@ -63,7 +66,9 @@ export const PeriodsSetting: React.FC<PeriodsSettingProps> = ({
         <Table className="border border-neutral-300">
           <TableHeader className="bg-neutral-200">
             <TableRow>
-              <TableHead className="text-sm">Menstruation</TableHead>
+              <TableHead className="text-sm">
+                {t("periods.menstruation")}
+              </TableHead>
               <TableHead>
                 {showPeriod && (
                   <div className="flex text-center justify-end">
@@ -85,9 +90,9 @@ export const PeriodsSetting: React.FC<PeriodsSettingProps> = ({
                     {data.id === "ovulation" && (
                       <Sparkles size={14} color="#16a34a" />
                     )}
-                    {data.id === "menstruation" && "Menstruation Duration"}
-                    {data.id === "cycle" && "Cycle Duration"}
-                    {data.id === "ovulation" && "Ovulation"}
+                    {data.id === "menstruation" && t("periods.duration")}
+                    {data.id === "cycle" && t("periods.cycle")}
+                    {data.id === "ovulation" && t("periods.ovulation")}
                   </div>
                 </TableCell>
                 <TableCell>
@@ -115,7 +120,7 @@ export const PeriodsSetting: React.FC<PeriodsSettingProps> = ({
       <div className="flex justify-end mt-4">
         {!showPeriod && (
           <Button className="w-full" onClick={handleSaveData}>
-            Save
+            {t("button.save")}
           </Button>
         )}
       </div>

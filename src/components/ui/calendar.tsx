@@ -1,13 +1,22 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { ChevronLeft, ChevronRight } from "lucide-react"
-import { DayPicker } from "react-day-picker"
+import * as React from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { DayPicker } from "react-day-picker";
+import * as dayjs from "dayjs";
 
-import { cn } from "@/lib/utils"
-import { buttonVariants } from "@/components/ui/button"
+import { cn } from "@/lib/utils";
+import { buttonVariants } from "@/components/ui/button";
+import { ru } from "date-fns/locale";
+import { uk } from "date-fns/locale";
+import { pl } from "date-fns/locale";
+import { enUS } from "date-fns/locale";
+import "dayjs/locale/ru";
+import "dayjs/locale/uk";
+import "dayjs/locale/pl";
+import "dayjs/locale/en";
 
-export type CalendarProps = React.ComponentProps<typeof DayPicker>
+export type CalendarProps = React.ComponentProps<typeof DayPicker>;
 
 function Calendar({
   className,
@@ -15,9 +24,22 @@ function Calendar({
   showOutsideDays = true,
   ...props
 }: CalendarProps) {
+  const locale = dayjs.locale();
+  dayjs.locale(locale);
+  let dateFnsLocale;
+  if (locale === "ru") {
+    dateFnsLocale = ru;
+  } else if (locale === "pl") {
+    dateFnsLocale = pl;
+  } else if (locale === "uk") {
+    dateFnsLocale = uk;
+  } else {
+    dateFnsLocale = enUS;
+  }
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
+      locale={dateFnsLocale}
       className={cn("p-3 bg-white", className)}
       classNames={{
         months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
@@ -69,8 +91,8 @@ function Calendar({
       }}
       {...props}
     />
-  )
+  );
 }
-Calendar.displayName = "Calendar"
+Calendar.displayName = "Calendar";
 
-export { Calendar }
+export { Calendar };

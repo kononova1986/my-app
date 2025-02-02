@@ -1,0 +1,26 @@
+{
+  "button": {
+    "save": "Zapisz",
+    "addTask": "Dodaj zadanie",
+    "calculate": "Oblicz"
+  },
+  "periods": {
+    "menstruation": "Miesiączka",
+    "duration": "Czas trwania miesiączki",
+    "cycle": "Cykl",
+    "ovulation": "Owulacja",
+    "days": "dni",
+    "day": "dzień"
+  },
+  "toDoNavigation": {
+    "yesterday": "Wczoraj",
+    "today": "Dziś",
+    "tomorrow": "Jutro",
+    "week": "Tydzień",
+    "month": "Miesiąc"
+  },
+  "workouts": {
+    "kg": "Waga ciała w kg",
+    "cm": "Wzrost w centymetrach"
+  }
+}

@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { SidebarProvider } from "@/components/ui";
-import { HeaderNavigation } from "@/components/layout";
+import { HeaderNavigation, LayoutWrapper } from "@/components/layout";
+import { Suspense } from "react";
+import dayjs from "dayjs";
+import localizedFormat from "dayjs/plugin/localizedFormat";
+
+
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -13,17 +18,25 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  dayjs.extend(localizedFormat);
+  dayjs.locale("en"); 
   return (
     <html lang="en" className="h-full w-full">
       <body className="flex h-full w-full bg-muted">
-        <SidebarProvider>
-          <div className="flex flex-col w-full">
-            <header className="flex h-16 shrink-0 items-center bg-primary shadow-[0px_10px_15px_-5px_rgba(0,0,0,0.4)] gap-2 w-full">
-              <HeaderNavigation />
-            </header>
-            <main className="h-full container justify-center">{children}</main>
-          </div>
-        </SidebarProvider>
+        <LayoutWrapper>
+          <Suspense fallback={<div>Loading translations...</div>}>
+            <SidebarProvider>
+              <div className="flex flex-col w-full">
+                <header className="flex h-16 shrink-0 items-center bg-primary shadow-[0px_10px_15px_-5px_rgba(0,0,0,0.4)] gap-2 w-full">
+                  <HeaderNavigation />
+                </header>
+                <main className="h-full container justify-center">
+                  {children}
+                </main>
+              </div>
+            </SidebarProvider>
+          </Suspense>
+        </LayoutWrapper>
       </body>
     </html>
   );

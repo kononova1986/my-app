@@ -1,0 +1,26 @@
+{
+  "button": {
+    "save": "Зберегти",
+    "addTask": "Додати завдання",
+    "calculate": "Обчислити"
+  },
+  "periods": {
+    "menstruation": "Менструація",
+    "duration": "Тривалість менструації",
+    "cycle": "Цикл",
+    "ovulation": "Овуляція",
+    "days": "дні",
+    "day": "день"
+  },
+  "toDoNavigation": {
+    "yesterday": "Вчора",
+    "today": "Сьогодні",
+    "tomorrow": "Завтра",
+    "week": "Тиждень",
+    "month": "Місяць"
+  },
+  "workouts": {
+    "kg": "Вага тіла в кг",
+    "cm": "Зріст в сантиметрах"
+  }
+}

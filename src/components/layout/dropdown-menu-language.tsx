@@ -11,6 +11,7 @@ import {
 } from "@/components/ui";
 import { FlagUa, FlagGb, FlagPl } from "@/components/icons";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
 
 interface DropdownMenuLanguageProps {
   className?: string;
@@ -23,6 +24,7 @@ export const DropdownMenuLanguage = ({
 }: DropdownMenuLanguageProps): React.ReactElement => {
   const [selectedLanguage, setSelectedLanguage] =
     useState<Language>("Language");
+   const { i18n } = useTranslation();
 
   return (
     <div className={className}>
@@ -41,7 +43,10 @@ export const DropdownMenuLanguage = ({
         <DropdownMenuContent className="w-[176px] mr-4">
           <DropdownMenuCheckboxItem
             checked={selectedLanguage === "Ukraine"}
-            onCheckedChange={() => setSelectedLanguage("Ukraine")}
+            onCheckedChange={() => {
+              setSelectedLanguage("Ukraine");
+              i18n.changeLanguage("uk");
+            }}
             className="flex gap-2"
           >
             <FlagUa />
@@ -49,7 +54,10 @@ export const DropdownMenuLanguage = ({
           </DropdownMenuCheckboxItem>
           <DropdownMenuCheckboxItem
             checked={selectedLanguage === "Poland"}
-            onCheckedChange={() => setSelectedLanguage("Poland")}
+            onCheckedChange={() => {
+              setSelectedLanguage("Poland");
+              i18n.changeLanguage("pl");
+            }}
             className="flex gap-2"
           >
             <FlagPl />
@@ -57,7 +65,10 @@ export const DropdownMenuLanguage = ({
           </DropdownMenuCheckboxItem>
           <DropdownMenuCheckboxItem
             checked={selectedLanguage === "England"}
-            onCheckedChange={() => setSelectedLanguage("England")}
+            onCheckedChange={() => {
+              setSelectedLanguage("England");
+              i18n.changeLanguage("en");
+            }}
             className="flex gap-2"
           >
             <FlagGb />

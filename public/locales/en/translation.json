@@ -1,0 +1,26 @@
+{
+  "button": {
+    "save": "Save",
+    "addTask": "Add Task",
+    "calculate": "Calculate"
+  },
+  "periods": {
+    "menstruation": "Menstruation",
+    "duration": "Menstruation Duration",
+    "cycle": "Cycle",
+    "ovulation": "Ovulation",
+    "days": "days",
+    "day": "day"
+  },
+  "toDoNavigation": {
+    "yesterday": "Yesterday",
+    "today": "Today",
+    "tomorrow": "Tomorrow",
+    "week": "Week",
+    "month":"Month"
+  },
+  "workouts":{
+  "kg": "Body weight in kg",
+  "cm":"Height in centimeter"
+  }
+}
