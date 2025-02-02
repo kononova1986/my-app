@@ -1,0 +1,1 @@
+export { BodyMassIndex } from './body-mass-index';
