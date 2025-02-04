@@ -43,8 +43,12 @@ export const DurationStep: React.FC<DurationStepProps> = ({
   };
 
   return (
-    <div className={cn('flex flex-row gap-1', className)}>
-      <Button size={'sm'} className="w-8 h-8 [&_svg]:size-4" onClick={minusValue}>
+    <div className={cn("flex flex-row gap-1", className)}>
+      <Button
+        size={"sm"}
+        className="w-8 h-8 [&_svg]:size-4 shadow-none"
+        onClick={minusValue}
+      >
         <Minus />
       </Button>
       <Input
@@ -53,9 +57,13 @@ export const DurationStep: React.FC<DurationStepProps> = ({
         value={duration.value}
         onChange={handleLocalInputChange}
       />
-      <Button size={'sm'} className="w-8 h-8 [&_svg]:size-4" onClick={addValue}>
+      <Button
+        size={"sm"}
+        className="w-8 h-8 [&_svg]:size-4 shadow-none"
+        onClick={addValue}
+      >
         <Plus className="py-0" />
       </Button>
     </div>
-  )
+  );
 }

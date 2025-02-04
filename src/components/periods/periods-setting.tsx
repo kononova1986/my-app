@@ -9,12 +9,13 @@ import {
   TableHeader,
   TableRow,
 } from "../ui";
-import { Clock, Droplets, Settings, Sparkles } from "lucide-react";
+import { Settings } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { DurationStep } from "./duration-step";
 import { Button } from "../ui";
 import type { DurationArray } from "../types";
 import { useTranslation } from "react-i18next";
+import { FcClock, FcCloseUpMode, FcSynchronize } from "react-icons/fc";
 
 interface PeriodsSettingProps {
   className?: string;
@@ -83,12 +84,10 @@ export const PeriodsSetting: React.FC<PeriodsSettingProps> = ({
               <TableRow key={data.id}>
                 <TableCell>
                   <div className={cn("flex items-center text-center gap-2")}>
-                    {data.id === "menstruation" && (
-                      <Droplets size={14} color="#f43f5e" />
-                    )}
-                    {data.id === "cycle" && <Clock size={14} color="#16a34a" />}
+                    {data.id === "menstruation" && <FcClock size={20} />}
+                    {data.id === "cycle" && <FcSynchronize size={20} />}
                     {data.id === "ovulation" && (
-                      <Sparkles size={14} color="#16a34a" />
+                      <FcCloseUpMode size={20} color="#16a34a" />
                     )}
                     {data.id === "menstruation" && t("periods.duration")}
                     {data.id === "cycle" && t("periods.cycle")}
