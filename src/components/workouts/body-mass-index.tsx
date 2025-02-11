@@ -65,7 +65,7 @@ export const BodyMassIndex: React.FC<BodyMassIndexProps> = ({ className }) => {
             type="number"
             value={bwi.kg <= 0 ? "" : bwi.kg}
             onChange={handleChangeInput}
-            className="bg-white w-full text-sm text-gray-700"
+            className="bg-white min-w-[90px]text-sm text-gray-700"
           ></Input>
         </div>
         <div>
@@ -77,7 +77,7 @@ export const BodyMassIndex: React.FC<BodyMassIndexProps> = ({ className }) => {
             type="number"
             value={bwi.cm <= 0 ? "" : bwi.cm}
             onChange={handleChangeInput}
-            className="bg-white w-full text-sm text-gray-700"
+            className="bg-white min-w-[90px] text-sm text-gray-700"
           ></Input>
         </div>
       </div>
