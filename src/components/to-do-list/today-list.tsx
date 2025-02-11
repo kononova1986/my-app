@@ -170,7 +170,7 @@ export const TodayList: React.FC<TodayListProps> = () => {
   return (
     <div className="flex flex-col justify-center">
       <AddTask onSubmit={onSubmit} />
-      <Table className="min-w-[350px] max-w-full text-base mt-6 border border-neutral-500 ">
+      <Table className="min-w-[350px] max-w-full text-base mt-6 border">
         <TableHeader>
           <TableRow>
             <TableHead

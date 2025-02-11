@@ -75,7 +75,7 @@ export const AddTask: React.FC<AddTaskProps> = ({ className, onSubmit, }) => {
           </Label>
           <Input
             id="task"
-            className="min-w-[180px] bg-white border-neutral-500"
+            className="min-w-[180px] bg-white"
             value={addTask.task}
             onChange={handleChangeInput}
           />
