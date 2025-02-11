@@ -2,7 +2,9 @@
   "button": {
     "save": "Zapisz",
     "addTask": "Dodaj zadanie",
-    "calculate": "Oblicz"
+    "calculate": "Oblicz",
+    "cancel": "Anuluj",
+    "update": "Aktualizuj"
   },
   "periods": {
     "menstruation": "Miesiączka",
@@ -20,7 +22,20 @@
     "month": "Miesiąc"
   },
   "workouts": {
+    "title": "Wprowadź swoje dane, aby obliczyć wskaźnik masy ciała.",
     "kg": "Waga ciała w kg",
-    "cm": "Wzrost w centymetrach"
-  }
+    "cm": "Wzrost w centymetrach",
+    "infoAboutBmi": {
+      "underweight": "Niedowaga",
+      "normalWeight": "Prawidłowa waga",
+      "overweight": "Nadwaga",
+      "obese": "Otyłość",
+      "invalidBMI": "Nieprawidłowe BMI! Proszę wprowadzić swoje parametry"
+    }
+  },
+  "addTask": {
+  "task": "Zadanie",
+  "description": "Opis",
+  "priority": "Priorytet"
+}
 }

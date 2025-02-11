@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Button, Input } from "../ui";
 import { Label } from "../ui";
 import { useTranslation } from "react-i18next";
+import { FcCalculator } from "react-icons/fc";
 
 interface BodyMassIndexProps {
   className?: string;
@@ -30,19 +31,19 @@ export const BodyMassIndex: React.FC<BodyMassIndexProps> = ({ className }) => {
     let info: string;
     switch (true) {
       case bmi < 18.5:
-        info = "Underweight";
+        info = t("workouts.infoAboutBmi.underweight");
         break;
       case bmi >= 18.5 && bmi < 24.9:
-        info = "Normal weight";
+        info = t("workouts.infoAboutBmi.normalWeight");
         break;
       case bmi >= 25 && bmi < 29.9:
-        info = "Overweight";
+        info = t("workouts.infoAboutBmi.overweight");
         break;
       case bmi >= 30:
-        info = "Obese";
+        info = t("workouts.infoAboutBmi.obese");
         break;
       default:
-        info = "Invalid BMI! Please enter numbers";
+        info = t("workouts.infoAboutBmi.invalidBMI");
         break;
     }
     return info;
@@ -50,7 +51,11 @@ export const BodyMassIndex: React.FC<BodyMassIndexProps> = ({ className }) => {
 
   return (
     <div className={cn("", className)}>
-      <div className="grid grid-cols-2 gap-4">
+      <span className="flex flex-row text-sm items-center ">
+        <FcCalculator size={24} />
+        {t("workouts.title")}
+      </span>
+      <div className="grid grid-cols-2 gap-4 mt-1">
         <div>
           <Label htmlFor="kg" className="text-xs text-primary">
             {t("workouts.kg")}
@@ -60,7 +65,7 @@ export const BodyMassIndex: React.FC<BodyMassIndexProps> = ({ className }) => {
             type="number"
             value={bwi.kg <= 0 ? "" : bwi.kg}
             onChange={handleChangeInput}
-            className="bg-white border-neutral-300 text-sm text-gray-700"
+            className="bg-white  text-sm text-gray-700"
           ></Input>
         </div>
         <div>
@@ -72,7 +77,7 @@ export const BodyMassIndex: React.FC<BodyMassIndexProps> = ({ className }) => {
             type="number"
             value={bwi.cm <= 0 ? "" : bwi.cm}
             onChange={handleChangeInput}
-            className="bg-white border-neutral-300 text-sm text-gray-700"
+            className="bg-white  text-sm text-gray-700"
           ></Input>
         </div>
       </div>
@@ -81,9 +86,9 @@ export const BodyMassIndex: React.FC<BodyMassIndexProps> = ({ className }) => {
           {t("button.calculate")}
         </Button>
         {bwiData <= 0 ? null : (
-          <div className="flex w-full bg-white text-sm text-gray-700 items-center text-center justify-center rounded-sm mt-6 h-8">
-            <p>{bwiData} -</p>
-            <p className=" pl-1">{infoAboutBmi(bwiData)}</p>
+          <div className="flex gap-1 w-full bg-white text-sm text-gray-700 items-center text-center justify-center p-1 rounded-sm mt-6 h-10">
+            {isNaN(bwiData) ? null : <p>{bwiData}</p>}
+            <p className="">{infoAboutBmi(bwiData)}</p>
           </div>
         )}
       </div>

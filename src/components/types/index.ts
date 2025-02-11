@@ -2,15 +2,13 @@ export enum TaskPriority {
   Low = "Low",
   Medium = "Medium",
   High = "High",
-  Critical = "Critical",
-  Urgent = "Urgent",
 }
 
 export type TaskPriorityType = TaskPriority | undefined;
 
 export interface TaskToday {
   priority: TaskPriorityType;
-  title?: string;
+  task?: string;
   description: string;
   id: string;
   isChecked?: boolean;

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { JSX, useState } from "react";
 import {
   Button,
   Card,
@@ -23,17 +23,28 @@ import {
 import { cn } from "@/lib/utils";
 import { nanoid } from "nanoid";
 import { AddTask } from "../common/add-task";
-import { TaskToday, TaskPriority  } from "../types";
-
+import { TaskToday, TaskPriority } from "../types";
+import {
+  FcHighPriority,
+  FcLowPriority,
+  FcMediumPriority,
+} from "react-icons/fc";
+import { useTranslation } from "react-i18next";
 
 const tasks: TaskToday[] = [
   {
     id: nanoid(),
     priority: TaskPriority.High,
-    title: "Chris",
+    task: "Chris",
     description: "HTML tables",
   },
 ];
+
+const priorityIcons: Record<string, JSX.Element> = {
+  Low: <FcLowPriority className="mr-2" size={16} />,
+  Medium: <FcMediumPriority className="mr-2" size={16} />,
+  High: <FcHighPriority className="mr-2" size={16} />,
+};
 
 const tasksWithIds = tasks.map((task) => ({
   ...task,
@@ -56,7 +67,13 @@ export const TodayList: React.FC<TodayListProps> = () => {
   const [isTasks, setIsTasks] = useState<TaskToday[]>(tasksWithIds);
   const [update, setUpdate] = useState<
     | TaskToday
-    | { priority: undefined; title: ""; description: ""; id: ""; isChecked: false }
+    | {
+        priority: undefined;
+        task: "";
+        description: "";
+        id: "";
+        isChecked: false;
+      }
     | undefined
   >(undefined);
 
@@ -67,12 +84,14 @@ export const TodayList: React.FC<TodayListProps> = () => {
     order: "desc",
   });
 
+  const { t } = useTranslation();
+
   const handleSorted = (sortName: keyof TaskToday) => {
     const order = sortOrder.order === "asc" ? 1 : -1;
     setIsTasks((prev) =>
       [...prev].sort((a, b) => {
-         const aValue = a[sortName] ?? ""; 
-         const bValue = b[sortName] ?? "";
+        const aValue = a[sortName] ?? "";
+        const bValue = b[sortName] ?? "";
         if (aValue > bValue) {
           return order;
         } else if (aValue < bValue) {
@@ -89,7 +108,7 @@ export const TodayList: React.FC<TodayListProps> = () => {
   };
 
   const onSubmit = (addTask: TaskToday): void => {
-    setIsTasks((prev) => [...prev, addTask]); 
+    setIsTasks((prev) => [...prev, addTask]);
   };
 
   const handleDeleteTask = (id: string) => {
@@ -107,7 +126,8 @@ export const TodayList: React.FC<TodayListProps> = () => {
   const handleUpdateInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
     setUpdate((prev) => {
-      if (!prev) return { priority: undefined, title: "", description: "", id: "" }; 
+      if (!prev)
+        return { priority: undefined, task: "", description: "", id: "" };
       return { ...prev, [id]: value };
     });
   };
@@ -150,27 +170,28 @@ export const TodayList: React.FC<TodayListProps> = () => {
   return (
     <div className="flex flex-col justify-center">
       <AddTask onSubmit={onSubmit} />
-      <Table className="min-w-[350px] max-w-full text-base mt-6 border border-neutral-300 ">
-        <TableHeader className="bg-neutral-200">
+      <Table className="min-w-[350px] max-w-full text-base mt-6 border border-neutral-500 ">
+        <TableHeader>
           <TableRow>
             <TableHead
+
               onClick={() => {
                 handleSorted("priority");
               }}
             >
               <div className="flex items-end cursor-pointer text-sm">
-                Task
+                Priority
                 <IconSort columnName={"priority"} />
               </div>
             </TableHead>
             <TableHead
               onClick={() => {
-                handleSorted("title");
+                handleSorted("task");
               }}
             >
               <div className="flex items-end cursor-pointer text-sm">
-                Title
-                <IconSort columnName={"title"} />
+                Task
+                <IconSort columnName={"task"} />
               </div>
             </TableHead>
             <TableHead
@@ -192,8 +213,13 @@ export const TodayList: React.FC<TodayListProps> = () => {
               key={task.id}
               className={cn("italic text-sm", task.isChecked && "")}
             >
-              <TableCell className="font-medium">{task.priority}</TableCell>
-              <TableCell>{task.title}</TableCell>
+              <TableCell className="font-medium">
+                <div className="flex flex-row">
+                  {priorityIcons[task.priority as keyof typeof priorityIcons]}
+                  {task.priority}
+                </div>
+              </TableCell>
+              <TableCell>{task.task}</TableCell>
               <TableCell>{task.description}</TableCell>
               <TableCell className="flex justify-end">
                 <div className="flex flex-row gap-1">
@@ -236,12 +262,12 @@ export const TodayList: React.FC<TodayListProps> = () => {
       </Table>
       {showCard && (
         <div className="flex justify-center">
-          <Card className="w-[350px] pt-6 mt-6">
+          <Card className="w-min-[350px] w-max-[650px] pt-6 mt-6">
             <CardContent>
               <form onSubmit={handleClickUpdateTask}>
                 <div className="grid w-full items-center gap-4">
                   <div className="flex flex-col space-y-1.5">
-                    <Label htmlFor="priority">Task</Label>
+                    <Label htmlFor="priority">{t("addTask.priority")}</Label>
                     <Input
                       id="priority"
                       value={update?.priority}
@@ -249,15 +275,17 @@ export const TodayList: React.FC<TodayListProps> = () => {
                     />
                   </div>
                   <div className="flex flex-col space-y-1.5">
-                    <Label htmlFor="title">Title</Label>
+                    <Label htmlFor="task">{t("addTask.task")}</Label>
                     <Input
-                      id="title"
-                      value={update?.title}
+                      id="task"
+                      value={update?.task}
                       onChange={handleUpdateInput}
                     />
                   </div>
                   <div className="flex flex-col space-y-1.5">
-                    <Label htmlFor="description">Description</Label>
+                    <Label htmlFor="description">
+                      {t("addTask.description")}
+                    </Label>
                     <Input
                       id="description"
                       value={update?.description}
@@ -268,13 +296,13 @@ export const TodayList: React.FC<TodayListProps> = () => {
                 <div className="flex justify-center gap-4 mt-4">
                   <Button
                     variant="outline"
-                    className="text-base"
+                    className="w-full px-1 text-base"
                     onClick={() => setShowCard(false)}
                   >
-                    Cancel
+                    {t("button.cancel")}
                   </Button>
-                  <Button type="submit" className="text-base">
-                    Update
+                  <Button type="submit" className="w-full text-base">
+                    {t("button.update")}
                   </Button>
                 </div>
               </form>

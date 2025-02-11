@@ -1,10 +1,12 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { JSX, useEffect, useState } from "react";
 import { Input } from "../ui/input";
 import { Button, Label, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui";
 import { cn } from "@/lib/utils";
 import { nanoid } from "nanoid";
 import { TaskToday, TaskPriority } from "../types";
+import { useTranslation } from "react-i18next";
+import { FcHighPriority, FcLowPriority, FcMediumPriority } from "react-icons/fc";
 
 interface AddTaskProps {
   className?: string;
@@ -14,11 +16,18 @@ interface AddTaskProps {
 export const AddTask: React.FC<AddTaskProps> = ({ className, onSubmit, }) => {
   const [addTask, setAddTask] = useState<TaskToday>({
     priority: undefined, 
-    title: "",
+    task: "",
     description: "",
     id: "",
   });
 
+  const { t } = useTranslation();
+
+ const priorityIcons: Record<string, JSX.Element> = {
+    Low: <FcLowPriority className="mr-2" size={16} />,
+    Medium: <FcMediumPriority className="mr-2" size={16} />,
+    High: <FcHighPriority className="mr-2" size={16} />,
+  };
 
   const handlePriorityChange = (value: TaskPriority) => {
     setAddTask((prev) => ({ ...prev, priority: value }));
@@ -27,7 +36,7 @@ export const AddTask: React.FC<AddTaskProps> = ({ className, onSubmit, }) => {
   const [isDisabled, setIsDisabled] = useState(true);
   
   useEffect(() => {
-    if (addTask.title && addTask.description && addTask.priority) {
+    if (addTask.task && addTask.description && addTask.priority) {
       setIsDisabled(false);
     } else {
       setIsDisabled(true);
@@ -46,7 +55,7 @@ export const AddTask: React.FC<AddTaskProps> = ({ className, onSubmit, }) => {
     onSubmit({ ...addTask, id: nanoid() });
       setAddTask({
         priority: undefined, 
-        title: "",
+        task: "",
         description: "",
         id: "",
       });
@@ -61,20 +70,20 @@ export const AddTask: React.FC<AddTaskProps> = ({ className, onSubmit, }) => {
         )}
       >
         <div>
-          <Label htmlFor="title" className="text-primary pl-1">
-            Title
+          <Label htmlFor="task" className="text-primary pl-1 text-xs">
+            {t("addTask.task")}
           </Label>
           <Input
-            id="title"
-            className="min-w-[180px] bg-white"
-            value={addTask.title}
+            id="task"
+            className="min-w-[180px] bg-white border-neutral-500"
+            value={addTask.task}
             onChange={handleChangeInput}
           />
         </div>
 
         <div>
-          <Label htmlFor="description" className="text-primary pl-1">
-            Description
+          <Label htmlFor="description" className="text-primary pl-1 text-xs">
+            {t("addTask.description")}
           </Label>
           <Input
             id="description"
@@ -85,8 +94,8 @@ export const AddTask: React.FC<AddTaskProps> = ({ className, onSubmit, }) => {
         </div>
 
         <div>
-          <Label htmlFor="task" className="text-primary pl-1">
-            Task
+          <Label htmlFor="priority" className="text-primary pl-1 text-xs">
+            {t("addTask.priority")}
           </Label>
           <Select
             value={addTask.priority ?? ""}
@@ -98,7 +107,8 @@ export const AddTask: React.FC<AddTaskProps> = ({ className, onSubmit, }) => {
             <SelectContent>
               {Object.values(TaskPriority).map((priorityValue) => (
                 <SelectItem key={priorityValue} value={priorityValue}>
-                  {priorityValue}
+                  <span>{priorityIcons[priorityValue]}</span>
+                  <span>{priorityValue}</span>
                 </SelectItem>
               ))}
             </SelectContent>
@@ -107,14 +117,12 @@ export const AddTask: React.FC<AddTaskProps> = ({ className, onSubmit, }) => {
       </div>
 
       <Button
-        type="submit"
         disabled={isDisabled}
-        className="text-base"
         onClick={() => {
           submitData();
         }}
       >
-        Add Task
+        {t("button.addTask")}
       </Button>
     </>
   );

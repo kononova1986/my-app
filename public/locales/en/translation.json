@@ -2,7 +2,9 @@
   "button": {
     "save": "Save",
     "addTask": "Add Task",
-    "calculate": "Calculate"
+    "calculate": "Calculate",
+    "cancel": "Cancel",
+    "update": "Update"
   },
   "periods": {
     "menstruation": "Menstruation",
@@ -17,10 +19,23 @@
     "today": "Today",
     "tomorrow": "Tomorrow",
     "week": "Week",
-    "month":"Month"
+    "month": "Month"
   },
-  "workouts":{
-  "kg": "Body weight in kg",
-  "cm":"Height in centimeter"
+  "workouts": {
+    "title":"Enter your data to calculate your Body Mass Index.",
+    "kg": "Body weight in kg",
+    "cm": "Height in centimeter",
+    "infoAboutBmi": {
+      "underweight": "Underweight",
+      "normalWeight": "Normal Weight",
+      "overweight": "Over Weight",
+      "obese": "Obese",
+      "invalidBMI": "Invalid BMI! Please enter your parameters"
+    }
+  },
+  "addTask": {
+    "task": "Task",
+    "description": "Description",
+    "priority": "Priority"
   }
 }
